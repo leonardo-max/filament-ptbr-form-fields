@@ -4,7 +4,7 @@ namespace Leandrocfe\FilamentPtbrFormFields;
 
 use Closure;
 use Filament\Forms\Components\TextInput;
-use Filament\Support\RawJs;
+use Filament\Support\Js;
 
 class PhoneNumber extends TextInput
 {
@@ -16,7 +16,7 @@ class PhoneNumber extends TextInput
     public function dynamic(bool $condition = true): static
     {
         if ($condition) {
-            $this->mask(RawJs::make(<<<'JS'
+            $this->mask(Js::from(<<<'JS'
                 $input.length >= 14 ? '(99)99999-9999' : '(99)9999-9999'
             JS));
         }
