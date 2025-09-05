@@ -2,20 +2,21 @@
 
 namespace Leandrocfe\FilamentPtbrFormFields;
 
-use Filament\FilamentServiceProvider;
-use Filament\Support\Assets\Js;
+use Filament\PluginServiceProvider;
 use Filament\Support\Facades\FilamentAsset;
 use Spatie\LaravelPackageTools\Package;
 
-class FilamentPtbrFormFieldsServiceProvider extends FilamentServiceProvider
+class FilamentPtbrFormFieldsServiceProvider extends PluginServiceProvider
 {
-    public function packageBooted(): void
-    {
-        parent::packageBooted();
+    public static string $name = 'filament-ptbr-form-fields';
 
-        FilamentAsset::register([
-            Js::make('money-script', __DIR__.'/../resources/js/money.js'),
-        ]);
+    public function boot(): void
+    {
+        parent::boot();
+
+        FilamentAsset::registerScripts([
+            'money-script' => __DIR__.'/../resources/js/money.js',
+        ], package: static::$name);
     }
 
     public function configurePackage(Package $package): void
@@ -26,7 +27,7 @@ class FilamentPtbrFormFieldsServiceProvider extends FilamentServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('filament-ptbr-form-fields')
+            ->name(static::$name)
             ->hasConfigFile()
             ->hasViews();
     }
