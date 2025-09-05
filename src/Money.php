@@ -23,8 +23,10 @@ class Money extends TextInput
         $this
             ->currency()
             ->prefix('R$')
-            ->extraAlpineAttributes(fn () => $this->getOnKeyPress())
-            ->extraAlpineAttributes(fn () => $this->getOnKeyUp())
+            ->alpineAttributes(fn () => array_merge(
+                $this->getOnKeyPress(),
+                $this->getOnKeyUp(),
+            ))
             ->formatStateUsing(fn ($state) => $this->hydrateCurrency($state))
             ->dehydrateStateUsing(fn ($state) => $this->dehydrateCurrency($state));
     }
