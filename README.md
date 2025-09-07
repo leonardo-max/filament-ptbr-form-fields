@@ -16,6 +16,10 @@ composer require leandrocfe/filament-ptbr-form-fields:"^3.0"
 
 ### Filament V2 - if you are using Filament v2.x, you can use [this section](https://github.com/leandrocfe/filament-ptbr-form-fields/tree/2.0.0)
 
+### Legacy components
+
+The previous `PtbrCep`, `PtbrPhone`, and `PtbrCpfCnpj` classes are deprecated. They now act as wrappers around `Cep`, `PhoneNumber`, and `Document` respectively and will be removed in a future release.
+
 ## Usage
 
 ### CPF / CNPJ
