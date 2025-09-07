@@ -40,29 +40,22 @@ class PtbrCep extends TextInput
             ->mask('99999-999')
             ->afterStateUpdated(function ($state, Livewire $livewire, Set $set, Component $component) use ($errorMessage, $setFields, $viaCepRequest) {
                 $viaCepRequest($state, $livewire, $set, $component, $errorMessage, $setFields);
-            })
-            ->suffixAction(function () use ($mode, $errorMessage, $setFields, $viaCepRequest) {
-                if ($mode === 'suffix') {
-                    return Action::make('search-action')
-                        ->label('Buscar CEP')
-                        ->icon('heroicon-o-magnifying-glass')
-                        ->action(function ($state, Livewire $livewire, Set $set, Component $component) use ($errorMessage, $setFields, $viaCepRequest) {
-                            $viaCepRequest($state, $livewire, $set, $component, $errorMessage, $setFields);
-                        })
-                        ->cancelParentActions();
-                }
-            })
-            ->prefixAction(function () use ($mode, $errorMessage, $setFields, $viaCepRequest) {
-                if ($mode === 'prefix') {
-                    return Action::make('search-action')
-                        ->label('Buscar CEP')
-                        ->icon('heroicon-o-magnifying-glass')
-                        ->action(function ($state, Livewire $livewire, Set $set, Component $component) use ($errorMessage, $setFields, $viaCepRequest) {
-                            $viaCepRequest($state, $livewire, $set, $component, $errorMessage, $setFields);
-                        })
-                        ->cancelParentActions();
-                }
             });
+
+        $action = Action::make('search-action')
+            ->label('Buscar CEP')
+            ->icon('heroicon-o-magnifying-glass')
+            ->action(function ($state, Livewire $livewire, Set $set, Component $component) use ($errorMessage, $setFields, $viaCepRequest) {
+                $viaCepRequest($state, $livewire, $set, $component, $errorMessage, $setFields);
+            });
+
+        if ($mode === 'suffix') {
+            $this->suffixActions([$action]);
+        }
+
+        if ($mode === 'prefix') {
+            $this->prefixActions([$action]);
+        }
 
         return $this;
     }
